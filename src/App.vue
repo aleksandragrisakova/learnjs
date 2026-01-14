@@ -1,34 +1,23 @@
 <script setup>
-import { ref } from 'vue';
-import Modal from './components/Modal.vue';
+import Tabs from './components/Tabs.vue';
+let activeTab = ref(0);
+let titles = ref(['Pictures', 'Music', 'Videos', 'Documents', 'Games']);
+let content = ref([
+    'Some awesome Pictures',
+    'Some awesome Music',
+    'Some awesome Videos',
+    'Some awesome Documents',
+    'Some awesome Games',
+])
 
-
-
-let modal1Active = ref(false);
-let modal2Active = ref(false);
+function setTab(index){
+    activeTab.value = index;
+}
 </script>
 
 <template>
-    <div class="container mt-s2">
-        <div class="content">
-            <button class="button is-primary" @click="modal1Active = true">Open Modal 1</button>
-            <button class="button is-link" @click="modal2Active = true">Open Modal 2</button>
-            <button class="button is-warning" @click="modal3Active = true">Open Modal 3</button>
-
-            <Modal :active="modal1Active" @close="modal1Active = false" url="https://picsum.photos/1280/960?random=1"></Modal>
-            <Modal :active="modal2Active" @click="modal2Active = false" url="https://picsum.photos/1280/960?random=2"></Modal>
-            <Modal :active="modal3Active" @click="modal3Active = false">
-                <div class="card">
-                    <div class="card-content">
-                        <div class="content">
-                            Lorem ipsum leo risus, porta ac consectetur ac, vestibulum at eros. Donec
-                            id elit non mi porta gravida at eget metus. Cum sociis natoque penatibus
-                            et magnis dis parturient montes, nascetur ridiculus mus. Cras mattis
-                            consectetur purus sit amet fermentum.
-                        </div>
-                    </div>
-                </div>
-            </Modal>
-        </div>
+    <Tab :active="activeTab" :titles="titles" @change="setTab"></Tab>
+    <div class="contentainer conetent">
+       <h1>{{ contents[activeTab] }}</h1>
     </div>
 </template>
